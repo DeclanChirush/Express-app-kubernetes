@@ -29,3 +29,12 @@ jobs:
         file: ./Dockerfile
         push: true
         tags: ${{ secrets.DOCKER_USERNAME }}/express-app-kubernetes:${{ github.sha }}
+
+    - name: Update config files in azure K8s
+      run: sed -i.bak 's/{{tag}}/${{ github.sha }}/g' azureK8s/deploy.yaml  && rm azureK8s/*.bak
+
+    - uses: actions-hub/kubectl@master
+      env:
+        KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+      with:
+        args: apply -f ./azurek8s

@@ -25,7 +25,7 @@ spec:
         app: express-app-k8s
     spec:
       containers:
-      - image: hirush99/express-app-kubernetes:c0f95b1dfd846a7605341380989746fc49068638
+      - image: hirush99/express-app-kubernetes:{{tag}}
         imagePullPolicy: IfNotPresent
         name: express-app-kubernetes
         resources: {}
